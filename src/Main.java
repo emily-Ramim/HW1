@@ -1,7 +1,11 @@
+import FirstPackage.WarGame;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
+
+
 
 public class Main {
     public static Random rnd;
