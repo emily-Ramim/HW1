@@ -87,11 +87,7 @@ public class WarGame {
                    System.out.println("player a out of cards!");
                }
 
-               try {
-                   tempDeckB.addCard(playerB.drawCard());
-               }
-               }
-            }
+
         }
 
 
