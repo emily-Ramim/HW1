@@ -44,7 +44,7 @@ public class WarGame {
             playerA.addToPullDeck(gameDeck.removeTopCard());
             playerB.addToPullDeck((gameDeck.removeTopCard()));
         }
-
+        System.out.println("Initializing the game...");
     }
 
     public boolean stopGame() {
@@ -53,64 +53,43 @@ public class WarGame {
 
     }
 
-    public String start() {
-        while (playerA.outOfCards() == false && playerB.outOfCards() == false) {
-            tempDeckA.addCard(playerA.drawCard());
-            tempDeckB.addCard(playerB.drawCard());
-            if (tempDeckA.cardlist.get(tempDeckA.cardlist.size() - 1).getNumber() > tempDeckB.cardlist.get(tempDeckB.cardlist.size() - 1).getNumber()) {
-                while (!tempDeckB.isEmpty()) {
-                    playerA.getWinDeck().addCard(tempDeckB.removeTopCard());
-
-                }
-                while (!tempDeckA.isEmpty()) {
-                    playerA.getWinDeck().addCard(tempDeckA.removeTopCard());
-
-                }
-            }
-            if (tempDeckA.cardlist.get(tempDeckA.cardlist.size() - 1).getNumber() < tempDeckB.cardlist.get(tempDeckB.cardlist.size() - 1).getNumber()) {
-                while (!tempDeckB.isEmpty()) {
-                    playerB.getWinDeck().addCard(tempDeckB.removeTopCard());
-
-                }
-                while (!tempDeckA.isEmpty()) {
-                    playerB.getWinDeck().addCard(tempDeckA.removeTopCard());
-
-                }
-            }
-            if (tempDeckA.cardlist.get(tempDeckA.cardlist.size() - 1).getNumber() == tempDeckB.cardlist.get(tempDeckB.cardlist.size() - 1).getNumber()) {
-               try
-               {
-                   tempDeckA.addCard(playerA.drawCard());
-                   tempDeckA.addCard(playerA.drawCard());
-               }
-               catch () {
-                   System.out.println("player a out of cards!");
-               }
-
-
-        }
-
-
-
-        public String starts()
-        {
-            this.initializeGame();
-            tempDeckA.addCard(playerA.drawCard());
-            tempDeckB.addCard(playerB.drawCard());
-            if(tempDeckA.getTopCard().compare(tempDeckB.getTopCard())==1) {
-                playerA.addToWinDeck(tempDeckA.getTopCard());
-                playerA.addToWinDeck(tempDeckB.getTopCard());
-            }
-            if(tempDeckA.getTopCard().compare(tempDeckB.getTopCard())==-1) {
-                playerB.addToWinDeck(tempDeckA.getTopCard());
-                playerB.addToWinDeck(tempDeckB.getTopCard());
-            }
-            else {
+    public void startingAWar() {
+        while (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == 0 && !playerA.outOfCards() && !playerB.outOfCards()) {
+            for (int i = 0; i < 3; i++) {
                 tempDeckA.addCard(playerA.drawCard());
                 tempDeckB.addCard(playerB.drawCard());
             }
-            }
 
+        }
     }
+
+    public String winnerString(Player player)
+    {
+        return player.toString()+"won";
+    }
+    public String gameString(Player player)
+    {
+        return
+    }
+    public String start() {
+        this.initializeGame();
+        while (!playerA.outOfCards() && !playerB.outOfCards()) {
+            tempDeckA.addCard(playerA.drawCard());
+            tempDeckB.addCard(playerB.drawCard());
+            if (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == 1) {
+                playerA.addToWinDeck(tempDeckA.getTopCard());
+                playerA.addToWinDeck(tempDeckB.getTopCard());
+            }
+            if (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == -1) {
+                playerB.addToWinDeck(tempDeckA.getTopCard());
+                playerB.addToWinDeck(tempDeckB.getTopCard());
+            } else {
+                this.startingAWar();
+            }
+        }
+        if(playerA.outOfCards())return this.winnerString(playerA);
+        else return this.winnerString(playerB);
+    }
+
 }
 
