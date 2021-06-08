@@ -52,7 +52,7 @@ class Card{
                 picture = picture.concat(" \u2663");
                 break;
             case Diamonds:
-                picture = picture.concat(" \u2662");
+                picture = picture.concat(" \u2666");
                 break;
         }
         return picture;

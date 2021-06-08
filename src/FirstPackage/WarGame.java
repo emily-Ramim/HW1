@@ -53,41 +53,58 @@ public class WarGame {
 
     }
 
-    public void startingAWar() {
-        while (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == 0 && !playerA.outOfCards() && !playerB.outOfCards()) {
-            for (int i = 0; i < 3; i++) {
-                tempDeckA.addCard(playerA.drawCard());
-                tempDeckB.addCard(playerB.drawCard());
-            }
-
-        }
+    public String winnerString(Player player) {
+        return player.getName() ;
     }
 
-    public String winnerString(Player player)
-    {
-        return player.toString()+"won";
-    }
-    public String gameString(Player player)
-    {
-        return
-    }
     public String start() {
         this.initializeGame();
+        boolean inWar = false;
+        int counter=1;
         while (!playerA.outOfCards() && !playerB.outOfCards()) {
+            if(inWar==false){
+                System.out.println("------------------------- Round number "+counter+" -------------------------");
+                counter++;
+            }
             tempDeckA.addCard(playerA.drawCard());
+            System.out.println(playerA.getName() + " drew " + tempDeckA.getTopCard().toString());
             tempDeckB.addCard(playerB.drawCard());
+            System.out.println(playerB.getName() + " drew " + tempDeckB.getTopCard().toString());
+
             if (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == 1) {
+                if (inWar) {
+                    System.out.println(playerA.getName() + " won the war");
+                    //inWar = false;
+                }
                 playerA.addToWinDeck(tempDeckA.getTopCard());
                 playerA.addToWinDeck(tempDeckB.getTopCard());
+                if (!inWar)System.out.println(playerA.getName() + " won");
+                inWar = false;
             }
             if (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == -1) {
+                if (inWar){
+                    System.out.println(playerA.getName() + " won the war");
+                    //inWar = false;
+                }
                 playerB.addToWinDeck(tempDeckA.getTopCard());
                 playerB.addToWinDeck(tempDeckB.getTopCard());
-            } else {
-                this.startingAWar();
+                if (!inWar)System.out.println(playerB.getName() + " won");
+                inWar = false;
+            }
+            if (tempDeckA.getTopCard().compare(tempDeckB.getTopCard()) == 0){
+                System.out.println("Starting a war...");
+                inWar = true;
+                for (int i = 0; i < 2; i++) {
+                    if (playerA.outOfCards() || playerB.outOfCards()) break;//change later
+                    tempDeckA.addCard(playerA.drawCard());
+                    System.out.println(playerA.getName() + " drew a war card");
+                    tempDeckB.addCard(playerB.drawCard());
+                    System.out.println(playerB.getName() + " drew a war card");
+                }
+
             }
         }
-        if(playerA.outOfCards())return this.winnerString(playerA);
+        if (playerA.outOfCards()) return this.winnerString(playerA);
         else return this.winnerString(playerB);
     }
 

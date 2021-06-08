@@ -31,9 +31,11 @@ class Deck {
             }
         }
     }
+
     public Card getTopCard() {
-        return cardlist.get(cardlist.size()-1);
+        return cardlist.get(cardlist.size() - 1);
     }
+
     public void addCard(Card card) {
         cardlist.add(card);
     }
@@ -60,6 +62,7 @@ class Deck {
     }
 }
 
-}
 
-}
+
+
+
